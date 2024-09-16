@@ -66,6 +66,30 @@
           </pom>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.graalvm.buildtools</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <version>0.10.3</version>
+        <extensions>true</extensions>
+        <configuration>
+          <mainClass>com.github.apache9.hbase.Cleaner</mainClass>
+          <imageName>hbase_nightlies_cleaner</imageName>
+          <buildArgs>
+            <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+            <buildArg>-H:ReflectionConfigurationFiles=native_reflect_config</buildArg>
+            <buildArg>--enable-https</buildArg>
+          </buildArgs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build-native</id>
+            <goals>
+              <goal>compile-no-fork</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>
